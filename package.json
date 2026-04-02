@@ -1,0 +1,12 @@
+{
+  "name": "kanpla-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/TAULO/kanpla-api.git",
+  "author": "Thomas Taulo <taulo@live.dk>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "typescript": "^6.0.2"
+  }
+}
