@@ -1,12 +1,23 @@
 {
   "name": "kanpla-api",
   "version": "1.0.0",
-  "main": "index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "main": "src/index.js",
   "repository": "https://github.com/TAULO/kanpla-api.git",
   "author": "Thomas Taulo <taulo@live.dk>",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^25.5.0",
+    "axios": "^1.14.0",
+    "dotenv": "^17.4.0",
+    "prettier": "^3.8.1",
+    "tsx": "^4.21.0",
     "typescript": "^6.0.2"
-  }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc && node dist/index.js"
+  },
+  "dependencies": {}
 }
