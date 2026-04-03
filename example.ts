@@ -8,9 +8,9 @@ const kanpla = new Kanpla({
   language: "da",
 });
 
+const menu = await kanpla.getMenusByDate(new Date("2026-04-01"));
+
 console.log(
   "Menu from date: 2026-04-01",
-  await kanpla.getMenusByDate(new Date("2026-04-01")),
+  menu
 );
-
-console.log("Today's menu", await kanpla.getTodayMenu());
