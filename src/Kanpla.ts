@@ -1,5 +1,24 @@
 import KanplaAPI, { type IKanplaAPI } from "./KanplaAPI.js";
 
+export interface IMenuItem {
+  name: string;
+  category: string;
+  photo: string;
+  menu: IMenu;
+  type: string;
+}
+
+export interface IMenu {
+  description: string;
+  productId: string;
+  moduleId: string;
+  dateSeconds: number;
+  allergens: Object;
+  labels: Object;
+  pictograms: Object;
+  name: string;
+}
+
 class Kanpla {
   private _kanplaAPI: KanplaAPI;
 
@@ -34,7 +53,7 @@ class Kanpla {
     return d.getTime() / 1000;
   }
 
-  async getMenusByDate(date: Date) {
+  async getMenusByDate(date: Date): Promise<IMenuItem[]> {
     const frontendData = await this._kanplaAPI.getFrontendByModuleId();
     return frontendData.reduce((acc: any, item: any) => {
       const timestamp = this.toUnixDay(date).toString();
@@ -45,16 +64,23 @@ class Kanpla {
         name: item.name,
         category: item.category,
         photo: item.photo,
-        menu: dates?.menu,
+        menu: dates?.menu as IMenu,
         type,
       });
 
       return acc;
-    }, []);
+    }, [] as IMenuItem[]);
   }
 
-  async getTodayMenu() {
+  async getTodayMenu(): Promise<IMenuItem[]> {
     return await this.getMenusByDate(new Date());
+  }
+
+  async getModuleIds(): Promise<string[]> {
+    const data = await this._kanplaAPI.getFrontendData();
+    const offers = data.offers;
+
+    return Object.keys(offers);
   }
 }
 
