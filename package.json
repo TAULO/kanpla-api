@@ -1,5 +1,5 @@
 {
-  "name": "kanpla-api",
+  "name": "@taulo1999/kanpla-api",
   "version": "1.0.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,5 +26,8 @@
     "build:watch": "tsc -w -p tsconfig.json",
     "prettier": "prettier --config .prettierrc --write ."
   },
-  "dependencies": {}
+  "dependencies": {},
+  "publishConfig": {
+    "access": "public"
+  }
 }
