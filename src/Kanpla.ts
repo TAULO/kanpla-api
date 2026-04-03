@@ -5,7 +5,7 @@ export interface IMenuItem {
   category: string;
   photo: string;
   menu: IMenu;
-  type: string;
+  type: 'main' | 'vegetarian' | 'other';
 }
 
 export interface IMenu {
