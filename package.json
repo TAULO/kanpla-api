@@ -1,12 +1,17 @@
 {
   "name": "kanpla-api",
   "version": "1.0.0",
-  "types": "./dist/index.d.ts",
   "type": "module",
-  "main": "src/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "source": "./src",
   "repository": "https://github.com/TAULO/kanpla-api.git",
   "author": "Thomas Taulo <taulo@live.dk>",
   "license": "MIT",
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "devDependencies": {
     "@types/node": "^25.5.0",
     "axios": "^1.14.0",
@@ -16,8 +21,10 @@
     "typescript": "^6.0.2"
   },
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc && node dist/index.js"
+    "start": "tsx example.ts",
+    "build": "tsc -p tsconfig.json",
+    "build:watch": "tsc -w -p tsconfig.json",
+    "prettier": "prettier --config .prettierrc --write ."
   },
   "dependencies": {}
 }
