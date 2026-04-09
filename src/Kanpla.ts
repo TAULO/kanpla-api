@@ -19,6 +19,10 @@ export interface IMenu {
   name: string;
 }
 
+export interface WeekMenu {
+  [dateKey: string]: IMenuItem[];
+}
+
 class Kanpla {
   private _kanplaAPI: KanplaAPI;
 
@@ -81,10 +85,10 @@ class Kanpla {
     return await this.getMenusByDate(new Date());
   }
 
-  async getThisWeekMenu(): Promise<IMenuItem[]> {
+  async getThisWeekMenu(): Promise<WeekMenu> {
     const frontendData = await this._kanplaAPI.getFrontendByModuleId();
 
-    const menus: IMenuItem[] = [];
+    const menus: WeekMenu = {};
     const today = new Date();
     const monday = new Date(today);
     monday.setDate(today.getDate() - ((today.getDay() + 6) % 7));
@@ -92,17 +96,17 @@ class Kanpla {
     for (let i = 0; i < 5; i++) {
       const date = new Date(monday);
       date.setDate(monday.getDate() + i);
-      menus.push(...(await this.getMenuData(frontendData, date)));
+      const dateKey = date.toISOString().split("T")[0];
+      menus[dateKey as string] = await this.getMenuData(frontendData, date);
     }
 
     return menus;
   }
 
-  async getNextWeekMenu(): Promise<IMenuItem[]> {
+  async getNextWeekMenu(): Promise<WeekMenu> {
     const frontendData = await this._kanplaAPI.getFrontendByModuleId();
 
-    const menus: IMenuItem[] = [];
-
+    const menus: WeekMenu = {};
     const today = new Date();
     const nextMonday = new Date(today);
     nextMonday.setDate(today.getDate() - ((today.getDay() + 6) % 7) + 7);
@@ -110,7 +114,8 @@ class Kanpla {
     for (let i = 0; i < 5; i++) {
       const date = new Date(nextMonday);
       date.setDate(nextMonday.getDate() + i);
-      menus.push(...(await this.getMenuData(frontendData, date)));
+      const dateKey = date.toISOString().split("T")[0];
+      menus[dateKey as string] = await this.getMenuData(frontendData, date);
     }
 
     return menus;

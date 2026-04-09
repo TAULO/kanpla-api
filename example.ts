@@ -14,3 +14,10 @@ console.log(
   "Menu from date: 2026-04-01",
   menu
 );
+
+const nextWeekMenu = await kanpla.getNextWeekMenu();
+console.log("Next week menu", nextWeekMenu);
+
+const thisWeekMenu = await kanpla.getThisWeekMenu();
+console.log("This week menu", thisWeekMenu);
+
