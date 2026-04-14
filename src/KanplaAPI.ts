@@ -62,7 +62,7 @@ class KanplaAPI implements IKanplaAPI {
     const body = {
       userId,
       url: "app",
-      language: "da",
+      language: this.language || "da",
     };
 
     const headers = {
