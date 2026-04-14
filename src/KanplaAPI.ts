@@ -102,6 +102,39 @@ class KanplaAPI implements IKanplaAPI {
     const data = await this.getFrontendData();
     return data?.offers?.[this.firebaseModuleId]?.items || [];
   }
+
+  async getAvailableMenuModules(
+    frontendData?: any,
+  ): Promise<Array<{ id: string; name: string }>> {
+    if (!frontendData) frontendData = await this.getFrontendData();
+
+    const offers = frontendData.offers;
+    const schoolId = frontendData["child"]["schoolId"];
+
+    return frontendData.modules
+      .map((module: any) => {
+        const { name, id } = module;
+        return {
+          name,
+          id,
+        };
+      })
+      .filter((module: any) => {
+        const offer = offers[module.id];
+        if (!offer || !offer.items || offer.items.length === 0) return false;
+
+        const relevantItems = offer.items.filter(
+          (item: any) => item.productBankId === schoolId,
+        );
+        if (relevantItems.length === 0) return false;
+
+        return relevantItems.some((item: any) =>
+          Object.values(item.dates || {}).some(
+            (date: any) => date?.menu != null,
+          ),
+        );
+      });
+  }
 }
 
 export default KanplaAPI;

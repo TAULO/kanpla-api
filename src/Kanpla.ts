@@ -121,11 +121,8 @@ class Kanpla {
     return menus;
   }
 
-  async getModuleIds(): Promise<string[]> {
-    const data = await this._kanplaAPI.getFrontendData();
-    const offers = data.offers;
-
-    return Object.keys(offers);
+  async getAvailableMenuModules(): Promise<Array<{ id: string; name: string }>> {
+    return await this._kanplaAPI.getAvailableMenuModules();
   }
 }
 
